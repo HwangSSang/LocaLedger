@@ -1,0 +1,5 @@
+spring:
+  application.name: LocalLedger
+  h2:
+    console:
+      enabled: true
