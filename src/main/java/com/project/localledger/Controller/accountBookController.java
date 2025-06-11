@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+
 @Controller
 public class accountBookController {
 
@@ -36,10 +38,6 @@ public class accountBookController {
         model.addAttribute("expenseForm", expenseForm);
         model.addAttribute("isOnlineExpense", "온라인".equals(expenseForm.getExpenseType()));
         model.addAttribute("isOffLineExpense", "오프라인".equals(expenseForm.getExpenseType()));
-
-        if (message != null && !message.isEmpty()) {
-            model.addAttribute("message", message);
-        }
 
         return"accountBook/accountMain";
     }
