@@ -189,7 +189,6 @@
             color: white;
         }
         .calendar-grid .day.other-month {
-            color: #bbb;
             background-color: #f0f0f0;
             border: 1px solid #f0f0f0;
         }
@@ -202,7 +201,13 @@
             width: 100%;
             text-align: left;
         }
-
+        .calendar-grid .day.other-month .day-num,
+        .calendar-grid .day.other-month .income-label,
+        .calendar-grid .day.other-month .expense-label,
+        .calendar-grid .day.other-month .income-amount-display,
+        .calendar-grid .day.other-month .expense-amount-display {
+            color: #bbb;
+        }
         .income-row, .expense-row {
             display: flex;
             justify-content: flex-start;
