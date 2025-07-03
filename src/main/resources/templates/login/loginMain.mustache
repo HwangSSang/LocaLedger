@@ -100,6 +100,10 @@
         <div class="error-message">{{errorMessage}}</div>
     {{/errorMessage}}
 
+    {{#successMessage}}
+        <div class="error-message">{{successMessage}}</div>
+    {{/successMessage}}
+
     <form action="/login" method="post">
         <div class="input-group">
             <label for="username">사용자 이름 (또는 이메일)</label>

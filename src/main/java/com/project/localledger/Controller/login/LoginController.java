@@ -30,27 +30,18 @@ public class LoginController {
     @GetMapping("/login")
     public String showLoginPage(@RequestParam(value = "error", required = false) String error,
                                 @RequestParam(value = "logout", required = false) String logout,
+                                @RequestParam(value = "message", required = false) String message,
                                 Model model) {
-        if(error != null){
-            model.addAttribute("errorMessage","아이디 또는 비밀번호가 올바르지 않습니다.");
+        if(error != null || message != null){
+            if(message != null){
+                model.addAttribute("errorMessage", message);
+            } else{
+                model.addAttribute("errorMessage","아이디 또는 비밀번호가 올바르지 않습니다.");
+            }
         }
         if(logout != null){
             model.addAttribute("successMessage", "로그아웃 되었습니다.");
         }
-        return "login/loginMain";
-    }
-
-    @PostMapping("/login")
-    public String processLogin(@RequestParam String username, @RequestParam String password, Model model) {
-        Optional<Login> optionalLogin = loginRepository.findByUsername(username);
-
-        if(optionalLogin.isPresent()){
-            Login login = optionalLogin.get();
-            if(login.getPassword().equals(password)){
-                return  "redirect:/account";
-            }
-        }
-        model.addAttribute("errorMessage","아이디 또는 비밀번호가 올바르지 않습니다.");
         return "login/loginMain";
     }
 

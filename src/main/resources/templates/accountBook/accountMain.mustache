@@ -468,6 +468,12 @@
     <div class="summary-item">총 지출: <span id="monthlyTotalExpense">0원</span></div>
 </div>
 
+<div style="text-align: right; margin-top: 10px;">
+    <form action="/logout" method="post" style="display:inline-block;">
+        <button type="submit" class="logout-button">로그아웃</button>
+    </form>
+</div>
+
 <script>
     // 이 변수들은 DOMContentLoaded 밖에서 선언되어야 displayDailyDetails 함수에서도 접근할 수 있습니다.
     const calendarGrid = document.getElementById('calendarGrid');
@@ -660,24 +666,17 @@
     // DOMContentLoaded 이벤트 리스너: DOM이 완전히 로드된 후 실행됩니다.
     document.addEventListener('DOMContentLoaded', async () => {
         // 이 안에서만 요소들을 안전하게 찾을 수 있습니다.
-        detailModal = document.getElementById('detailModal');
-        closeButton = document.querySelector('#detailModal .close-button');
-        modalDateSpan = document.getElementById('modalDate');
-        incomeDetailsList = document.getElementById('incomeDetailsList');
-        expenseDetailsList = document.getElementById('expenseDetailsList');
-
-        // ★★★ 디버깅용 console.log (문제 해결 후 제거하세요) ★★★
-        console.log('DOMContentLoaded - detailModal:', detailModal);
-        console.log('DOMContentLoaded - closeButton:', closeButton);
-        console.log('DOMContentLoaded - modalDateSpan:', modalDateSpan);
-        console.log('DOMContentLoaded - incomeDetailsList:', incomeDetailsList);
-        console.log('DOMContentLoaded - expenseDetailsList:', expenseDetailsList);
-        // ★★★ 여기까지 디버깅용 console.log ★★★
-
+        const detailModal = document.getElementById('detailModal');
+        const closeButton = document.querySelector('#detailModal .close-button');
+        const modalDateSpan = document.getElementById('modalDate');
+        const incomeDetailsList = document.getElementById('incomeDetailsList');
+        const expenseDetailsList = document.getElementById('expenseDetailsList');
         // 모달 닫기 버튼 클릭 이벤트
         if (closeButton) { // 요소가 정상적으로 찾아졌는지 확인
             closeButton.addEventListener('click', () => {
-                detailModal.style.display = 'none';
+                if (detailModal){
+                    detailModal.style.display = 'none';
+                }
             });
         } else {
             console.error("오류: 'closeButton' 요소를 찾을 수 없습니다. HTML 구조를 확인하세요.");

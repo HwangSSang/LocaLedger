@@ -1,5 +1,6 @@
 package com.project.localledger.config;
 
+import com.project.localledger.config.handler.CustomAuthenticationFailureHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    public SecurityConfig(CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
+        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
+    }
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -27,7 +36,7 @@ public class SecurityConfig {
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .defaultSuccessUrl("/account", true)
-                        .failureUrl("/login")
+                        .failureHandler(customAuthenticationFailureHandler)
                         .permitAll()
                 )
                 .logout(logout -> logout
