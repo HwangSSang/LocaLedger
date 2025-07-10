@@ -1,10 +1,8 @@
 package com.project.localledger.Controller.login;
 
-import com.project.localledger.dto.login.LoginForm;
 import com.project.localledger.entity.login.Login;
 import com.project.localledger.repository.login.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Optional;
 
 @Controller
 public class LoginController {
@@ -55,6 +52,7 @@ public class LoginController {
                                   @RequestParam String password,
                                   @RequestParam String confirmPassword,
                                   Model model){
+
         if(!password.equals(confirmPassword)){
             model.addAttribute("errorMessage","비밀번호가 일치하지 않습니다.");
             return "login/registerMain";
@@ -69,8 +67,6 @@ public class LoginController {
 
         Login newlogin = new Login(null, username, encodedPassword);
         loginRepository.save(newlogin);
-
-        System.out.println("회원가입 시도 : username = " + username + ", password = " + encodedPassword);
 
         model.addAttribute("successMessage","회원가입이 완료되었습니다! 로그인 해주세요");
         return "login/loginMain";
